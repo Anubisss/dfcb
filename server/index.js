@@ -1,7 +1,8 @@
 'use strict';
 
 const config = require('./src/config');
-const messageProcessor = require('./src/messageProcessor');
+const conversationLoader = require('./src/conversation/loader');
+const messageLoader = require('./src/message/loader');
 const server = require('./src/server');
 
 const start = () => {
@@ -11,7 +12,9 @@ const start = () => {
     process.exit(1);
   }
 
-  messageProcessor.process(config.MESSAGES_PATH);
+  const conversations = conversationLoader.load(config.MESSAGES_PATH);
+  const messages = messageLoader.load(conversations);
+  console.log(conversations['norbertbiczo_o7kyyzocmq']);
   // server.start(config.PORT);
 };
 

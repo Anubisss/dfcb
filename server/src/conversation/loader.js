@@ -10,9 +10,12 @@ const PATHS = {
   ARCHIVED: 'archived_threads',
 };
 
-const parse = (messagesPath) => {
-  console.log('parsing conversations');
+const load = (path) => {
+  console.log(`Loading conversations from: ${path}`);
+  return loadAllConversations(path);
+};
 
+const loadAllConversations = (messagesPath) => {
   const conversations = {};
 
   const paths = [PATHS.INBOX, PATHS.ARCHIVED];
@@ -24,6 +27,8 @@ const parse = (messagesPath) => {
       conversations[conversation.id] = conversation;
     }
   }
+
+  return conversations;
 };
 
 const listConversationDirectories = (path) => {
@@ -33,7 +38,11 @@ const listConversationDirectories = (path) => {
 };
 
 const parseConversation = (path, isArchived) => {
-  const conversation = new Conversation();
+  /*const conversation = new Conversation();
+  conversation.id = basename(path);
+  conversation.path = path;
+  conversation.isArchived = isArchived;*/
+  const conversation = {};
   conversation.id = basename(path);
   conversation.path = path;
   conversation.isArchived = isArchived;
@@ -42,5 +51,5 @@ const parseConversation = (path, isArchived) => {
 };
 
 module.exports = {
-  parse,
+  load,
 };
